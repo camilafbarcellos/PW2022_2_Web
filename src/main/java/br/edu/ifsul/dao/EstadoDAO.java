@@ -3,7 +3,7 @@ package br.edu.ifsul.dao;
 
 import java.io.Serializable;
 import javax.ejb.Stateful;
-import modelo.Estado;
+import br.edu.ifsul.modelo.Estado;
 
 /**
  *

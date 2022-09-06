@@ -48,7 +48,7 @@ public class DAOGenerico<TIPO> implements Serializable { // indica que necessita
         em.merge(obj);
     }
     
-    public TIPO getObjetctByID(Object id) throws Exception { // Object é genérica para todos os tipos
+    public TIPO getObjectByID(Object id) throws Exception { // Object é genérica para todos os tipos
         return (TIPO) em.find(classePersistente, id);
     }
     

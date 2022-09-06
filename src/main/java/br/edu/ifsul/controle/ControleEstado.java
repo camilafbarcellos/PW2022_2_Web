@@ -7,7 +7,7 @@ import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-import modelo.Estado;
+import br.edu.ifsul.modelo.Estado;
 
 /**
  *
@@ -35,7 +35,7 @@ public class ControleEstado implements Serializable {
     
     public void alterar(Object id) {
         try {
-            objeto = dao.getObjetctByID(id);
+            objeto = dao.getObjectByID(id);
         } catch (Exception e) {
             Util.mensagemErro("Erro ao recuperar objeto: " + Util.getMensagemErro(e));
         }
@@ -43,7 +43,7 @@ public class ControleEstado implements Serializable {
     
     public void remover(Object id) {
         try {
-            objeto = dao.getObjetctByID(id);
+            objeto = dao.getObjectByID(id);
             dao.remover(objeto);
             Util.mensagemInformacao("Objeto removido com sucesso!");
         } catch (Exception e) {
