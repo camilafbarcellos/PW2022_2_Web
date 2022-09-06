@@ -7,7 +7,7 @@ import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-import modelo.Estado;
+import br.edu.ifsul.modelo.Estado;
 
 /**
  *
