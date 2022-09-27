@@ -13,8 +13,48 @@
                 <p:commandButton value="Novo" actionListener="#{controleCidade.novo()}"
                                  icon="pi pi-plus" update="formEdicao" process="@this"
                                  oncomplete="PF('dlg').show();"/>
+                <!-- Paginação e filtro -->
+                <div align="center">
+                    <p:panelGrid columns="11">
+                        <p:outputLabel value="Ordem: "/>
+                        <p:selectOneMenu value="#{controleCidade.dao.ordemAtual}"
+                                         converter="#{controleCidade.dao.converterOrdem}">
+                            <f:selectItems value="#{controleCidade.dao.listaOrdem}"
+                                           var="ord" itemValue="#{ord.atributo}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Filtro"/>
+                        <p:inputText value="#{controleCidade.dao.filtro}">
+                            <p:ajax update="listagem" event="blur"/>
+                            <!-- no lugar do Ajax poderia ser um botão -->
+                        </p:inputText>
+                        <p:commandButton value="Filtrar" update="listagem"/>
+                        <p:selectOneMenu value="#{controleCidade.dao.maximoObjetos}">
+                            <f:selectItem itemLabel="4" itemValue="4"/>
+                            <f:selectItem itemLabel="8" itemValue="8"/>
+                            <f:selectItem itemLabel="10" itemValue="10"/>
+                            <f:selectItem itemLabel="50" itemValue="50"/>
+                            <f:selectItem itemLabel="100" itemValue="100"/>
+                            <p:ajax update="listagem"/>
+                        </p:selectOneMenu>
+                        <p:commandButton action="#{controleCidade.dao.primeiro()}"
+                                         title="Primeiro" update="listagem"
+                                         icon="pi pi-step-backward"/>
+                        <p:commandButton action="#{controleCidade.dao.anterior()}"
+                                         title="Anterior" update="listagem"
+                                         icon="pi pi-chevron-left"/>
+                        <p:commandButton action="#{controleCidade.dao.proximo()}"
+                                         title="Próximo" update="listagem"
+                                         icon="pi pi-chevron-right"/>
+                        <p:commandButton action="#{controleCidade.dao.ultimo()}"
+                                         title="Último" update="listagem"
+                                         icon="pi pi-step-forward"/>
+                    </p:panelGrid>
+                </div>
                 <p:dataTable value="#{controleCidade.dao.listaObjetos}" var="obj"
                              id="listagem">
+                    <f:facet name="footer">
+                        <p:outputLabel value="#{controleCidade.dao.mensagemNavegacao}"/>
+                    </f:facet>
                     <p:column headerText="ID">
                         <p:outputLabel value="#{obj.id}"/>
                     </p:column>
@@ -34,7 +74,7 @@
                             <p:commandButton
                                 actionListener="#{controleCidade.remover(obj.id)}"
                                 icon="pi pi-trash" title="Remover"
-                                update="formEdicao" process="@this"
+                                update="@form" process="@this"
                                 onclick="if(!confirm('Confirma a exclusão?')) return false"/>
                         </div>
                     </p:column>
